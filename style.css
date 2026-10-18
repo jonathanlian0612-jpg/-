@@ -5,3 +5,8 @@
 .hero-art{background:#e9e8df url('./1.jpg') center 48% / cover no-repeat;}
 .hero-art .art-grid,.hero-art .art-sun,.hero-art .sun-rays,.hero-art .art-blue,.hero-art .art-paper,.hero-art .pencil,.hero-art .art-orange,.hero-art .art-tag,.hero-art .art-caption,.hero-art .art-doodle{display:none;}
 @media(max-width:700px){.hero-art{background-position:center 45%;}}
+
+/* Replacement photographs 02–05: preserve existing image containers and responsive sizing. */
+.course-image.drawing,.course-image.collage,.course-image.sculpture,.moment-art{background-size:cover;background-repeat:no-repeat;background-position:center center;}
+.course-image.drawing>svg,.course-image.collage>.collage-circle,.course-image.collage>.collage-shape,.course-image.collage>.collage-lines,.course-image.sculpture>.clay,.moment-art>.moment-sun,.moment-art>.leaf,.moment-art>.stem,.moment-art>.moment-stamp,.moment-art>span{display:none;}
+@media(max-width:700px){.course-image.drawing,.course-image.collage,.course-image.sculpture,.moment-art{background-position:center center;}}
