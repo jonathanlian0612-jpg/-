@@ -16,3 +16,27 @@ function closeMenu() {
 nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
 document.querySelector('#year').textContent = new Date().getFullYear();
+
+// Reveal the course photographs once, when their shared row enters the viewport.
+const courseGrid = document.querySelector('.course-grid');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+if (courseGrid && 'IntersectionObserver' in window && !reducedMotion.matches) {
+  const observer = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      courseGrid.classList.add('course-photos-visible');
+      observer.disconnect();
+    }
+  }, { threshold: 0.05 });
+
+  courseGrid.classList.add('course-photos-ready');
+  observer.observe(courseGrid);
+
+  function respectReducedMotion(event) {
+    if (event.matches) {
+      observer.disconnect();
+      courseGrid.classList.remove('course-photos-ready', 'course-photos-visible');
+      reducedMotion.removeEventListener('change', respectReducedMotion);
+    }
+  }
+  reducedMotion.addEventListener('change', respectReducedMotion);
+}
