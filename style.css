@@ -3,3 +3,8 @@
 
 /* Temporary image references for selecting replacement photos. */
 .photo-number{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:3;display:inline-block;padding:7px 12px;border:1px solid #fff8;border-radius:4px;background:#262c25ed;color:#fff;font:600 12px/1.4 'Noto Sans TC',sans-serif;letter-spacing:1px;white-space:nowrap;pointer-events:none;box-shadow:0 2px 8px #0002}
+
+/* Homepage visual 01: real calligraphy class photo, bundled by Vite. */
+.hero-art{background:#e9e8df url('./1.jpg') center 48% / cover no-repeat;}
+.hero-art .art-grid,.hero-art .art-sun,.hero-art .sun-rays,.hero-art .art-blue,.hero-art .art-paper,.hero-art .pencil,.hero-art .art-orange,.hero-art .art-tag,.hero-art .art-caption,.hero-art .art-doodle{display:none;}
+@media(max-width:700px){.hero-art{background-position:center 45%;}}
