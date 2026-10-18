@@ -65,18 +65,18 @@
 /* Gentle, independent art reveals. No animation changes the document flow. */
 .art-reveal-trigger{position:absolute;visibility:hidden;pointer-events:none;}
 .hero-letter{display:inline-block;}
-.hero-letter:nth-child(2){--letter-delay:.3s;}
-.hero-letter:nth-child(3),.hero-letter:nth-child(4){--letter-delay:.6s;}
+.hero-letter:nth-child(2){--letter-delay:.48s;}
+.hero-letter:nth-child(3),.hero-letter:nth-child(4){--letter-delay:.96s;}
 .moments{perspective:1000px;}
 @media(prefers-reduced-motion:no-preference){
  [data-art-reveal="headline"].art-reveal-ready .hero-letter{opacity:0;}
- [data-art-reveal="headline"].art-reveal-visible .hero-letter{animation:art-letter-enter 1.2s ease-out var(--letter-delay,0s) 1 both;}
+ [data-art-reveal="headline"].art-reveal-visible .hero-letter{animation:art-letter-enter 1.92s ease-out var(--letter-delay,0s) 1 both;}
  [data-art-reveal="headline"].art-reveal-ready .hero-mask{mask-image:linear-gradient(90deg,#000 50%,transparent 50%);mask-size:200% 100%;mask-position:100% 0;}
- [data-art-reveal="headline"].art-reveal-visible .hero-mask{animation:art-mask-reveal 2s ease-out 1 both;}
+ [data-art-reveal="headline"].art-reveal-visible .hero-mask{animation:art-mask-reveal 3.2s ease-out 1 both;}
  [data-art-reveal="heading"].art-reveal-ready{opacity:0;}
- [data-art-reveal="heading"].art-reveal-visible{animation:art-heading-enter 1.2s ease-out 1 both;}
+ [data-art-reveal="heading"].art-reveal-visible{animation:art-heading-enter 1.92s ease-out 1 both;}
  [data-art-reveal="philosophy"].art-reveal-ready{opacity:0;}
- [data-art-reveal="philosophy"].art-reveal-visible{animation:art-philosophy-focus 1.5s ease-out 1 both;}
+ [data-art-reveal="philosophy"].art-reveal-visible{animation:art-philosophy-focus 2.4s ease-out 1 both;}
  [data-art-reveal="tilt"].art-reveal-ready{opacity:0;backface-visibility:hidden;}
  [data-art-reveal="tilt"].art-reveal-visible{animation:art-photo-tilt 2s ease-out 1 both;}
 }
