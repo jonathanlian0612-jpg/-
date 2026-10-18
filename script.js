@@ -67,3 +67,51 @@ if (courseGrid && 'IntersectionObserver' in window) {
   configureCourseAnimation();
   reducedMotion.addEventListener('change', configureCourseAnimation);
 }
+
+// A stationary target prevents the photo's own transform from retriggering its observer.
+const heroPhoto = document.querySelector('.hero-art');
+if (heroPhoto && 'IntersectionObserver' in window) {
+  const target = document.createElement('span');
+  target.className = 'hero-photo-trigger';
+  target.setAttribute('aria-hidden', 'true');
+  heroPhoto.parentElement.append(target);
+  let heroObserver;
+
+  function observeHeroPhoto() {
+    heroObserver?.disconnect();
+    Object.assign(target.style, {
+      left: `${heroPhoto.offsetLeft}px`,
+      top: `${heroPhoto.offsetTop}px`,
+      width: `${heroPhoto.offsetWidth}px`,
+      height: `${heroPhoto.offsetHeight}px`,
+    });
+    const threshold = Math.min(0.5, window.innerHeight * 0.5 / heroPhoto.offsetHeight);
+    heroObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          heroPhoto.classList.remove('hero-photo-visible');
+        } else if (entry.intersectionRatio >= threshold) {
+          heroPhoto.classList.add('hero-photo-visible');
+        }
+      }
+    }, { threshold: [0, threshold] });
+    heroObserver.observe(target);
+  }
+
+  function configureHeroAnimation() {
+    heroObserver?.disconnect();
+    window.removeEventListener('resize', observeHeroPhoto);
+    heroPhoto.classList.remove('hero-photo-ready', 'hero-photo-visible');
+    if (reducedMotion.matches) return;
+    heroPhoto.classList.add('hero-photo-ready');
+    observeHeroPhoto();
+    window.addEventListener('resize', observeHeroPhoto);
+  }
+
+  configureHeroAnimation();
+  // Font loading can change the hero text height and the photo's grid position.
+  document.fonts.ready.then(() => {
+    if (!reducedMotion.matches) observeHeroPhoto();
+  });
+  reducedMotion.addEventListener('change', configureHeroAnimation);
+}

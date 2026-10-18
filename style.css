@@ -21,17 +21,18 @@
  .moment-art{background-position:45% 48%;}
 }
 
-/* One-time hero entrance; transforms keep the existing layout and photo crop intact. */
+/* Observe a stationary target while the hero photo slides within its original layout. */
 .hero{overflow-x:clip;}
 @media(prefers-reduced-motion:no-preference){
- .hero-art{animation:hero-photo-enter 1.2s ease-out 1 both;}
+ .hero-art.hero-photo-ready{opacity:0;}
+ .hero-art.hero-photo-ready.hero-photo-visible{animation:hero-photo-enter 2s ease-out 1 both;}
 }
 @keyframes hero-photo-enter{
  from{opacity:0;transform:translateX(100vw);}
  to{opacity:1;transform:none;}
 }
 @media(prefers-reduced-motion:reduce){
- .hero-art{animation:none;}
+ .hero-art{animation:none;opacity:1;}
 }
 
 /* Replay photo fades after the complete course row leaves the viewport. */
@@ -48,3 +49,5 @@
 @media(prefers-reduced-motion:reduce){
  .course-photos-ready .course-image{opacity:1;animation:none;}
 }
+
+.hero-photo-trigger{position:absolute;pointer-events:none;visibility:hidden;}
