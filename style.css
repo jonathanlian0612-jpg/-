@@ -9,4 +9,14 @@
 /* Replacement photographs 02–05: preserve existing image containers and responsive sizing. */
 .course-image.drawing,.course-image.collage,.course-image.sculpture,.moment-art{background-size:cover;background-repeat:no-repeat;background-position:center center;}
 .course-image.drawing>svg,.course-image.collage>.collage-circle,.course-image.collage>.collage-shape,.course-image.collage>.collage-lines,.course-image.sculpture>.clay,.moment-art>.moment-sun,.moment-art>.leaf,.moment-art>.stem,.moment-art>.moment-stamp,.moment-art>span{display:none;}
-@media(max-width:700px){.course-image.drawing,.course-image.collage,.course-image.sculpture,.moment-art{background-position:center center;}}
+/* Keep the flower study and painting activity in view inside the original frames. */
+.course-image.drawing{background-position:50% 38%;}
+.course-image.collage{background-position:55% 50%;}
+.course-image.sculpture{background-position:50% 35%;}
+.moment-art{background-position:45% 48%;}
+@media(max-width:700px){
+ .course-image.drawing{background-position:50% 35%;}
+ .course-image.collage{background-position:55% 50%;}
+ .course-image.sculpture{background-position:50% 35%;}
+ .moment-art{background-position:45% 48%;}
+}
