@@ -33,3 +33,18 @@
 @media(prefers-reduced-motion:reduce){
  .hero-art{animation:none;}
 }
+
+/* Course photos fade in once; image geometry and existing hover effects stay intact. */
+@media(prefers-reduced-motion:no-preference){
+ .course-photos-ready .course-image{opacity:0;}
+ .course-photos-ready.course-photos-visible .course-image{animation:course-photo-fade 1.2s ease-out 1 both;}
+ .course-photos-visible>.course-card:nth-child(2) .course-image{animation-delay:.25s;}
+ .course-photos-visible>.course-card:nth-child(3) .course-image{animation-delay:.5s;}
+}
+@keyframes course-photo-fade{
+ from{opacity:0;}
+ to{opacity:1;}
+}
+@media(prefers-reduced-motion:reduce){
+ .course-photos-ready .course-image{opacity:1;animation:none;}
+}
