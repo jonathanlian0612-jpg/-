@@ -153,7 +153,8 @@ if ('IntersectionObserver' in window) {
         left: `${left}px`, top: `${top}px`,
         width: `${element.offsetWidth}px`, height: `${element.offsetHeight}px`,
       });
-      const threshold = Math.min(0.5, window.innerHeight * 0.5 / element.offsetHeight);
+      const visibleFraction = element.dataset.artReveal === 'philosophy' ? 0.2 : 0.5;
+      const threshold = Math.min(visibleFraction, window.innerHeight * 0.5 / element.offsetHeight);
       record.observer = new IntersectionObserver(entries => {
         for (const entry of entries) {
           if (!entry.isIntersecting) {

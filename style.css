@@ -40,7 +40,7 @@
  .course-photos-ready .course-image{opacity:0;}
  .course-photos-ready .course-image.course-photo-visible{animation:course-photo-fade 2s ease-out 1 both;}
  .course-photos-ready>.course-card:nth-child(2) .course-photo-visible{animation-delay:.25s;}
- .course-photos-ready>.course-card:nth-child(3) .course-photo-visible{animation-delay:.4s;}
+ .course-photos-ready>.course-card:nth-child(3) .course-photo-visible{animation-duration:1.2s;animation-delay:.3s;}
 }
 @keyframes course-photo-fade{
  from{opacity:0;}
@@ -76,7 +76,7 @@
  [data-art-reveal="heading"].art-reveal-ready{opacity:0;}
  [data-art-reveal="heading"].art-reveal-visible{animation:art-heading-enter 1.92s ease-out 1 both;}
  [data-art-reveal="philosophy"].art-reveal-ready{opacity:0;}
- [data-art-reveal="philosophy"].art-reveal-visible{animation:art-philosophy-focus 2.4s ease-out 1 both;}
+ [data-art-reveal="philosophy"].art-reveal-visible{animation:art-philosophy-focus 1.2s ease-out 1 both;}
  [data-art-reveal="tilt"].art-reveal-ready{opacity:0;backface-visibility:hidden;}
  [data-art-reveal="tilt"].art-reveal-visible{animation:art-photo-tilt 2s ease-out 1 both;}
 }
