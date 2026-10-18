@@ -119,3 +119,76 @@ if (heroPhoto && 'IntersectionObserver' in window) {
   });
   reducedMotion.addEventListener('change', configureHeroAnimation);
 }
+
+// Independent reveal targets keep text and 3D transforms from moving observer bounds.
+const artReveals = [
+  ...[...document.querySelectorAll('.hero h1')].map(element => ({ element, kind: 'headline' })),
+  ...[...document.querySelectorAll('main .section h2')].map(element => ({ element, kind: 'heading' })),
+  ...[...document.querySelectorAll('.about-body > div > p')].map(element => ({ element, kind: 'philosophy' })),
+  ...[...document.querySelectorAll('.moment-art')].map(element => ({ element, kind: 'tilt' })),
+];
+if ('IntersectionObserver' in window) {
+  const records = artReveals.map(({ element, kind }) => {
+    element.dataset.artReveal = kind;
+    const marker = document.createElement('span');
+    marker.className = 'art-reveal-trigger';
+    marker.setAttribute('aria-hidden', 'true');
+    document.body.append(marker);
+    return { element, marker, observer: null };
+  });
+
+  function updateArtObservers() {
+    for (const record of records) {
+      const { element, marker } = record;
+      record.observer?.disconnect();
+      if (reducedMotion.matches) continue;
+      // offset geometry is independent of the animated transform/filter.
+      let left = 0;
+      let top = 0;
+      for (let node = element; node; node = node.offsetParent) {
+        left += node.offsetLeft;
+        top += node.offsetTop;
+      }
+      Object.assign(marker.style, {
+        left: `${left}px`, top: `${top}px`,
+        width: `${element.offsetWidth}px`, height: `${element.offsetHeight}px`,
+      });
+      const threshold = Math.min(0.5, window.innerHeight * 0.5 / element.offsetHeight);
+      record.observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            element.classList.remove('art-reveal-visible');
+          } else if (entry.intersectionRatio >= threshold) {
+            element.classList.add('art-reveal-visible');
+          }
+        }
+      }, { threshold: [0, threshold] });
+      record.observer.observe(marker);
+    }
+  }
+
+  function configureArtReveals() {
+    for (const { element, observer } of records) {
+      observer?.disconnect();
+      element.classList.remove('art-reveal-ready', 'art-reveal-visible');
+      if (!reducedMotion.matches) element.classList.add('art-reveal-ready');
+    }
+    updateArtObservers();
+  }
+
+  // Follow responsive reflow and font loading without reacting to scroll or transforms.
+  let artResizeFrame;
+  function scheduleArtUpdate() {
+    cancelAnimationFrame(artResizeFrame);
+    artResizeFrame = requestAnimationFrame(updateArtObservers);
+  }
+  configureArtReveals();
+  window.addEventListener('resize', scheduleArtUpdate);
+  document.fonts.ready.then(scheduleArtUpdate);
+  if ('ResizeObserver' in window) {
+    const layoutObserver = new ResizeObserver(scheduleArtUpdate);
+    layoutObserver.observe(document.body);
+    records.forEach(({ element }) => layoutObserver.observe(element));
+  }
+  reducedMotion.addEventListener('change', configureArtReveals);
+}
