@@ -61,3 +61,32 @@
 @media(max-width:700px) and (hover:hover){.instagram-floating:hover{transform:translateY(-50%) scale(1.06);}}
 @media(prefers-reduced-motion:reduce){.instagram-floating{transition:none;}.instagram-floating:hover{transform:none;}}
 @media(max-width:700px) and (prefers-reduced-motion:reduce){.instagram-floating:hover{transform:translateY(-50%);}}
+
+/* Gentle, independent art reveals. No animation changes the document flow. */
+.art-reveal-trigger{position:absolute;visibility:hidden;pointer-events:none;}
+.hero-letter{display:inline-block;}
+.hero-letter:nth-child(2){--letter-delay:.3s;}
+.hero-letter:nth-child(3),.hero-letter:nth-child(4){--letter-delay:.6s;}
+.moments{perspective:1000px;}
+@media(prefers-reduced-motion:no-preference){
+ [data-art-reveal="headline"].art-reveal-ready .hero-letter{opacity:0;}
+ [data-art-reveal="headline"].art-reveal-visible .hero-letter{animation:art-letter-enter 1.2s ease-out var(--letter-delay,0s) 1 both;}
+ [data-art-reveal="headline"].art-reveal-ready .hero-mask{mask-image:linear-gradient(90deg,#000 50%,transparent 50%);mask-size:200% 100%;mask-position:100% 0;}
+ [data-art-reveal="headline"].art-reveal-visible .hero-mask{animation:art-mask-reveal 2s ease-out 1 both;}
+ [data-art-reveal="heading"].art-reveal-ready{opacity:0;}
+ [data-art-reveal="heading"].art-reveal-visible{animation:art-heading-enter 1.2s ease-out 1 both;}
+ [data-art-reveal="philosophy"].art-reveal-ready{opacity:0;}
+ [data-art-reveal="philosophy"].art-reveal-visible{animation:art-philosophy-focus 1.5s ease-out 1 both;}
+ [data-art-reveal="tilt"].art-reveal-ready{opacity:0;backface-visibility:hidden;}
+ [data-art-reveal="tilt"].art-reveal-visible{animation:art-photo-tilt 2s ease-out 1 both;}
+}
+@keyframes art-letter-enter{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@keyframes art-mask-reveal{from{mask-position:100% 0;}to{mask-position:0% 0;}}
+@keyframes art-heading-enter{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+@keyframes art-philosophy-focus{from{opacity:.15;filter:blur(5px);}to{opacity:1;filter:blur(0);}}
+@keyframes art-photo-tilt{from{opacity:0;transform:rotateY(15deg) rotateX(5deg);}to{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){
+ [data-art-reveal]{animation:none;opacity:1;transform:none;filter:none;}
+ [data-art-reveal="headline"] .hero-letter{animation:none;opacity:1;transform:none;}
+ [data-art-reveal="headline"] .hero-mask{animation:none;mask-image:none;}
+}
