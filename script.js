@@ -1,3 +1,7 @@
+import { INSTAGRAM_URL } from './site-config.js';
+
+document.querySelector('.instagram-floating').href = INSTAGRAM_URL;
+
 const button = document.querySelector('.menu-toggle');
 const nav = document.querySelector('#navigation');
 button.addEventListener('click', () => {
