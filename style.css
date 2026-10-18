@@ -34,12 +34,12 @@
  .hero-art{animation:none;}
 }
 
-/* Course photos fade in once; image geometry and existing hover effects stay intact. */
+/* Replay photo fades after the complete course row leaves the viewport. */
 @media(prefers-reduced-motion:no-preference){
  .course-photos-ready .course-image{opacity:0;}
- .course-photos-ready.course-photos-visible .course-image{animation:course-photo-fade 1.2s ease-out 1 both;}
- .course-photos-visible>.course-card:nth-child(2) .course-image{animation-delay:.25s;}
- .course-photos-visible>.course-card:nth-child(3) .course-image{animation-delay:.5s;}
+ .course-photos-ready .course-image.course-photo-visible{animation:course-photo-fade 2s ease-out 1 both;}
+ .course-photos-ready>.course-card:nth-child(2) .course-photo-visible{animation-delay:.4s;}
+ .course-photos-ready>.course-card:nth-child(3) .course-photo-visible{animation-delay:.8s;}
 }
 @keyframes course-photo-fade{
  from{opacity:0;}
